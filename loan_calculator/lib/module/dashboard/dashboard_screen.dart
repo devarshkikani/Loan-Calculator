@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:loan_calculator/constants/app_text.dart';
+import 'package:loan_calculator/module/lumpsum/lumpsum_screen.dart';
+import 'package:loan_calculator/module/sip/sip_screen.dart';
 import 'package:loan_calculator/theme/app_colors.dart';
 import 'package:loan_calculator/theme/app_text_style.dart';
 
@@ -43,7 +45,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
       appBar: AppBar(
         title: Text(
           AppText.calculators,
-          style: AppTextStyle.black22,
+          style: AppTextStyle.semiBold22,
         ),
       ),
       body: GridView.builder(
@@ -57,27 +59,40 @@ class _DashboardScreenState extends State<DashboardScreen> {
           mainAxisSpacing: 20,
         ),
         itemBuilder: (context, index) {
-          return Card(
-            color: AppColors.whiteColor,
-            child: Padding(
-              padding: const EdgeInsets.all(12),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text(
-                    listOfFeature[index]['title'],
-                    style: AppTextStyle.bold18,
-                  ),
-                  Text(
-                    listOfFeature[index]['subtitle'],
-                    style: AppTextStyle.regular14,
-                  ),
-                ],
+          return InkWell(
+            onTap: () {
+              if (index == 0) {
+                navigate(const SipScreen());
+              } else if (index == 1) {
+                navigate(const LumpsumScreen());
+              }
+            },
+            child: Card(
+              color: AppColors.whiteColor,
+              child: Padding(
+                padding: const EdgeInsets.all(12),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      listOfFeature[index]['title'],
+                      style: AppTextStyle.bold18,
+                    ),
+                    Text(
+                      listOfFeature[index]['subtitle'],
+                      style: AppTextStyle.regular14,
+                    ),
+                  ],
+                ),
               ),
             ),
           );
         },
       ),
     );
+  }
+
+  void navigate(Widget child) {
+    Navigator.push(context, MaterialPageRoute(builder: (context) => child));
   }
 }

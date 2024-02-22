@@ -26,7 +26,7 @@ class RoundedBorderButton extends StatelessWidget {
       onTap: onTap,
       child: Container(
         alignment: Alignment.center,
-        height: height ?? 40,
+        height: height ?? 50,
         width: width ?? MediaQuery.of(context).size.width * .5,
         decoration: BoxDecoration(
           color: bgColor,

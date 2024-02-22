@@ -5,6 +5,7 @@ class AppText {
   static const calculators = 'Calculators';
   static const settings = 'Settings';
   static const monthlyInvestment = 'Monthly investment';
+  static const totalInvestment = 'Total investment';
   static const expectedReturnRate = 'Expected return rate';
   static const timePeriod = 'Time period';
   static const calculate = 'Calculate';

@@ -19,6 +19,8 @@ class DdotLloaCalculatorAppState extends State<DotsLoanCalculatorApp> {
       theme: ThemeData(
         useMaterial3: true,
         // highlightColor: AppColors.highlightColor,
+        splashColor: AppColors.highlightColor,
+        splashFactory: InkSparkle.constantTurbulenceSeedSplashFactory,
         primaryColor: AppColors.primaryColor,
         // scaffoldBackgroundColor: AppColors.whiteColor,
       ),

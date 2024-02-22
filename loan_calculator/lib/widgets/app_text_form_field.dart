@@ -34,6 +34,7 @@ class TextFormFieldWidget extends StatelessWidget {
     this.enabledBorder,
     this.cursorColor,
     this.contentPadding,
+    this.autovalidateMode,
     this.autofocus,
     this.prefixIconConstraints,
     this.suffixIconConstraints,
@@ -71,6 +72,7 @@ class TextFormFieldWidget extends StatelessWidget {
   final BorderSide? border;
   final BorderSide? enabledBorder;
   final EdgeInsetsGeometry? contentPadding;
+  final AutovalidateMode? autovalidateMode;
   final TextCapitalization textCapitalization;
   final BoxConstraints? prefixIconConstraints;
   final BoxConstraints? suffixIconConstraints;
@@ -107,6 +109,7 @@ class TextFormFieldWidget extends StatelessWidget {
       contentPadding: contentPadding,
       filledColor: filledColor,
       border: border,
+      autovalidateMode: autovalidateMode,
       prefixIconConstraints: prefixIconConstraints,
       suffixIconConstraints: suffixIconConstraints,
       focusBorder: focusBorder,
@@ -152,10 +155,12 @@ class TextFormFieldWidget extends StatelessWidget {
     final BoxConstraints? prefixIconConstraints,
     final BoxConstraints? suffixIconConstraints,
     final EdgeInsetsGeometry? contentPadding,
+    final AutovalidateMode? autovalidateMode,
     final Function()? onEditingComplete,
   }) {
     return TextFormField(
       key: fieldKey,
+      autovalidateMode: autovalidateMode ?? AutovalidateMode.onUserInteraction,
       controller: controller,
       focusNode: focusNode,
       maxLines: maxLines ?? 1,
@@ -179,7 +184,7 @@ class TextFormFieldWidget extends StatelessWidget {
       cursorColor: cursorColor ?? AppColors.primaryColor,
       cursorHeight: cursorHeight ?? 24,
       style: style ??
-          AppTextStyle.regular18.copyWith(color: AppColors.primaryColor),
+          AppTextStyle.regular16.copyWith(color: AppColors.primaryColor),
       readOnly: readOnly ?? false,
       onEditingComplete: onEditingComplete,
       decoration: InputDecoration(
@@ -189,54 +194,111 @@ class TextFormFieldWidget extends StatelessWidget {
         isDense: true,
         contentPadding: contentPadding ??
             const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
-        border: UnderlineInputBorder(
-          borderRadius: BorderRadius.circular(10),
-          borderSide: const BorderSide(
-            color: Colors.transparent,
-          ),
+        border: InputBorder.none,
+        // OutlineInputBorder(
+        //   borderRadius: BorderRadius.circular(10),
+        //   borderSide: const BorderSide(
+        //     color: Colors.transparent,
+        //   ),
+        // ),
+        disabledBorder: InputBorder.none,
+        //  OutlineInputBorder(
+        //   borderRadius: BorderRadius.circular(10),
+        //   borderSide: const BorderSide(
+        //     color: Colors.transparent,
+        //   ),
+        // ),
+        enabledBorder: InputBorder.none,
+
+        // OutlineInputBorder(
+        //   borderRadius: BorderRadius.circular(10),
+        //   borderSide: const BorderSide(
+        //     color: Colors.transparent,
+        //   ),
+        // ),
+        focusedBorder: InputBorder.none,
+        //  OutlineInputBorder(
+        //   borderRadius: BorderRadius.circular(10),
+        //   borderSide: const BorderSide(
+        //     color: Colors.transparent,
+        //   ),
+        // ),
+        errorBorder: InputBorder.none,
+        //  OutlineInputBorder(
+        //   borderRadius: BorderRadius.circular(10),
+        //   borderSide: const BorderSide(
+        //     color: Colors.transparent,
+        //   ),
+        // ),
+        errorMaxLines: 2,
+        errorStyle: AppTextStyle.regular10.copyWith(
+          color: AppColors.errorColor,
         ),
-        disabledBorder: UnderlineInputBorder(
-          borderRadius: BorderRadius.circular(10),
-          borderSide: const BorderSide(
-            color: Colors.transparent,
-          ),
-        ),
-        enabledBorder: UnderlineInputBorder(
-          borderRadius: BorderRadius.circular(10),
-          borderSide: const BorderSide(
-            color: Colors.transparent,
-          ),
-        ),
-        focusedBorder: UnderlineInputBorder(
-          borderRadius: BorderRadius.circular(10),
-          borderSide: const BorderSide(
-            color: Colors.transparent,
-          ),
-        ),
-        errorBorder: UnderlineInputBorder(
-          borderRadius: BorderRadius.circular(10),
-          borderSide: const BorderSide(
-            color: Colors.transparent,
-          ),
-        ),
-        errorMaxLines: 5,
         fillColor: filledColor ?? AppColors.highlightColor,
         filled: true,
         hintText: hintText,
         hintStyle: hintStyle ??
-            AppTextStyle.regular18.copyWith(
+            AppTextStyle.regular16.copyWith(
               color: AppColors.whiteColor,
             ),
         counterText: '',
         suffixIcon: suffixIcon,
         labelText: labelText,
-        floatingLabelStyle: AppTextStyle.regular18.copyWith(
+        floatingLabelStyle: AppTextStyle.regular16.copyWith(
           color: AppColors.whiteColor.withOpacity(.8),
         ),
-        labelStyle: AppTextStyle.regular18.copyWith(
+        labelStyle: AppTextStyle.regular16.copyWith(
           color: AppColors.whiteColor,
         ),
         helperText: helperText,
+      ),
+    );
+  }
+}
+
+class FiledWithSuffix extends StatelessWidget {
+  const FiledWithSuffix({
+    super.key,
+    this.maxLength,
+    this.enabled,
+    this.onChanged,
+    this.textAlign,
+    this.onFieldSubmitted,
+    this.validator,
+    required this.controller,
+    required this.symbol,
+  });
+  final int? maxLength;
+  final String symbol;
+  final bool? enabled;
+  final TextAlign? textAlign;
+  final TextEditingController controller;
+  final String? Function(String?)? validator;
+  final Function(String? value)? onChanged;
+  final Function(String?)? onFieldSubmitted;
+  @override
+  Widget build(BuildContext context) {
+    return TextFormFieldWidget(
+      controller: controller,
+      maxLength: maxLength,
+      enabled: enabled,
+      textAlign: textAlign ?? TextAlign.right,
+      keyboardType: TextInputType.number,
+      textInputAction: TextInputAction.done,
+      suffixIconConstraints: const BoxConstraints(minWidth: 30),
+      onChanged: onChanged,
+      onFieldSubmitted: onFieldSubmitted,
+      validator: validator,
+      suffixIcon: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          Text(
+            symbol,
+            style: AppTextStyle.regular18.copyWith(
+              color: AppColors.primaryColor,
+            ),
+          ),
+        ],
       ),
     );
   }
