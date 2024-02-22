@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:loan_calculator/constants/app_text.dart';
 import 'package:loan_calculator/module/emi/emi_screen.dart';
+import 'package:loan_calculator/module/fd/fd_screen.dart';
 import 'package:loan_calculator/module/lumpsum/lumpsum_screen.dart';
 import 'package:loan_calculator/module/sip/sip_screen.dart';
 import 'package:loan_calculator/theme/app_colors.dart';
@@ -68,6 +69,8 @@ class _DashboardScreenState extends State<DashboardScreen> {
                 navigate(const LumpsumScreen());
               } else if (index == 2) {
                 navigate(const EmiScreen());
+              } else if (index == 3) {
+                navigate(const FdScreen());
               }
             },
             child: Card(
