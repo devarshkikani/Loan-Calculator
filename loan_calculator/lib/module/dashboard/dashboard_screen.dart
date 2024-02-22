@@ -3,6 +3,7 @@ import 'package:loan_calculator/constants/app_text.dart';
 import 'package:loan_calculator/module/emi/emi_screen.dart';
 import 'package:loan_calculator/module/fd/fd_screen.dart';
 import 'package:loan_calculator/module/lumpsum/lumpsum_screen.dart';
+import 'package:loan_calculator/module/mutual_funds/mutual_funds_screen.dart';
 import 'package:loan_calculator/module/sip/sip_screen.dart';
 import 'package:loan_calculator/theme/app_colors.dart';
 import 'package:loan_calculator/theme/app_text_style.dart';
@@ -37,8 +38,8 @@ class _DashboardScreenState extends State<DashboardScreen> {
           'Check returns on your fixed deposits (FDs) without any hassle',
     },
     {
-      'title': 'GST',
-      'subtitle': 'Calculate your payable GST amount with a few clicks',
+      'title': 'MF',
+      'subtitle': 'Calculate the returns on your mutual fund investments',
     },
   ];
   @override
@@ -71,6 +72,8 @@ class _DashboardScreenState extends State<DashboardScreen> {
                 navigate(const EmiScreen());
               } else if (index == 3) {
                 navigate(const FdScreen());
+              } else if (index == 4) {
+                navigate(const MutualFundsScreen());
               }
             },
             child: Card(
