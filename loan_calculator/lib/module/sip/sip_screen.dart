@@ -135,13 +135,13 @@ class _SipScreenState extends State<SipScreen> {
                             controller: time,
                             min: 1,
                             max: 30,
-                            maxLength: 2,
+                            maxLength: 3,
                             symbol: AppText.yearSymbol,
                             textAlign: TextAlign.left,
                             validator: (p0) {
                               if (p0!.isEmpty) {
                                 return 'Minimum value allowed is 1';
-                              } else if (int.parse(p0) > 30) {
+                              } else if (num.parse(p0) > 30) {
                                 return 'Maximum value allowed is 30';
                               } else {
                                 return null;
@@ -276,9 +276,9 @@ class _SipScreenState extends State<SipScreen> {
                     context,
                     MaterialPageRoute(
                         builder: (context) => SipResultScreen(
-                              investment: int.parse(investmentAmount.text),
-                              returnRate: double.parse(returnRate.text),
-                              time: int.parse(time.text),
+                              investment: num.parse(investmentAmount.text),
+                              returnRate: num.parse(returnRate.text),
+                              time: num.parse(time.text),
                             )));
               }
             },

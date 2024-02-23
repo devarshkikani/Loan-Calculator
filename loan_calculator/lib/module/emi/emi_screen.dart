@@ -135,13 +135,13 @@ class _EmiScreenState extends State<EmiScreen> {
                             controller: loanTenure,
                             min: 1,
                             max: 30,
-                            maxLength: 2,
+                            maxLength: 3,
                             symbol: AppText.yearSymbol,
                             textAlign: TextAlign.left,
                             validator: (p0) {
                               if (p0!.isEmpty) {
                                 return 'Minimum value allowed is 1';
-                              } else if (int.parse(p0) > 30) {
+                              } else if (num.parse(p0) > 30) {
                                 return 'Maximum value allowed is 30';
                               } else {
                                 return null;
@@ -273,13 +273,15 @@ class _EmiScreenState extends State<EmiScreen> {
             onTap: () {
               if (_formKey.currentState!.validate()) {
                 Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                        builder: (context) => EmiResultScreen(
-                              investment: int.parse(loanAmount.text),
-                              returnRate: double.parse(interest.text),
-                              time: int.parse(loanTenure.text),
-                            )));
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => EmiResultScreen(
+                      investment: num.parse(loanAmount.text),
+                      returnRate: num.parse(interest.text),
+                      time: num.parse(loanTenure.text),
+                    ),
+                  ),
+                );
               }
             },
           ),

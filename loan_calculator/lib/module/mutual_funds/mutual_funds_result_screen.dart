@@ -9,9 +9,9 @@ import 'package:loan_calculator/theme/app_text_style.dart';
 import 'package:loan_calculator/widgets/primary_button.dart';
 
 class MutualFundsResultScreen extends StatefulWidget {
-  final int investment;
-  final double returnRate;
-  final int time;
+  final num investment;
+  final num returnRate;
+  final num time;
   const MutualFundsResultScreen(
       {super.key,
       required this.investment,
@@ -57,7 +57,7 @@ class MutualFundsResultScreenState extends State<MutualFundsResultScreen> {
               ),
               paddingAll12(
                 child: Text(
-                  '${widget.investment.intPrice} ${AppText.rupeeSymbol}',
+                  '${widget.investment.numPrice} ${AppText.rupeeSymbol}',
                   style: AppTextStyle.semiBold16.copyWith(
                     color: AppColors.blackColor,
                   ),

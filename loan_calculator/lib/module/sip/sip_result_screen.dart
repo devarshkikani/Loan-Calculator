@@ -9,9 +9,9 @@ import 'package:loan_calculator/theme/app_text_style.dart';
 import 'package:loan_calculator/widgets/primary_button.dart';
 
 class SipResultScreen extends StatefulWidget {
-  final int investment;
-  final double returnRate;
-  final int time;
+  final num investment;
+  final num returnRate;
+  final num time;
   const SipResultScreen(
       {super.key,
       required this.investment,
@@ -61,7 +61,7 @@ class SipResultScreenState extends State<SipResultScreen> {
               ),
               paddingAll12(
                 child: Text(
-                  '${(widget.investment * (widget.time * 12)).intPrice} ${AppText.rupeeSymbol}',
+                  '${(widget.investment * (widget.time * 12)).numPrice} ${AppText.rupeeSymbol}',
                   style: AppTextStyle.semiBold16.copyWith(
                     color: AppColors.blackColor,
                   ),
@@ -95,7 +95,7 @@ class SipResultScreenState extends State<SipResultScreen> {
             children: [
               paddingAll12(
                 child: Text(
-                  'Time Period',
+                  AppText.timePeriod,
                   style: AppTextStyle.regular16,
                 ),
               ),

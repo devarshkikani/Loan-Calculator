@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:loan_calculator/constants/app_text.dart';
+import 'package:loan_calculator/module/calculator/calculator_screen.dart';
 import 'package:loan_calculator/module/dashboard/dashboard_screen.dart';
 import 'package:loan_calculator/theme/app_colors.dart';
 
@@ -18,7 +19,7 @@ class _HomeScreenState extends State<HomeScreen> {
       child: Scaffold(
         body: [
           const DashboardScreen(),
-          const DashboardScreen(),
+          const CalculatorScreen(),
           const DashboardScreen(),
         ][currentIndex],
         bottomNavigationBar: BottomNavigationBar(
