@@ -1,5 +1,5 @@
 import 'dart:math';
-
+import 'package:pie_chart/pie_chart.dart';
 import 'package:flutter/material.dart';
 import 'package:loan_calculator/constants/app_text.dart';
 import 'package:loan_calculator/extentions/number_formater_extension.dart';
@@ -23,6 +23,12 @@ class FdResultScreen extends StatefulWidget {
 }
 
 class FdResultScreenState extends State<FdResultScreen> {
+  Map<String, double> dataMap = <String, double>{};
+
+  final colorList = <Color>[
+    AppColors.secondaryLightColor,
+    AppColors.secondaryColor,
+  ];
   late num totalInvestment;
   late num result;
   @override
@@ -34,6 +40,11 @@ class FdResultScreenState extends State<FdResultScreen> {
 
     totalInvestment = widget.investment * pow((1 + r / n), n * widget.time);
     result = totalInvestment - widget.investment;
+    num percentage = (100 * result) / totalInvestment;
+    dataMap.addAll({
+      "Invested Amount": percentage.toDouble(),
+      "Est. returns": (100 - percentage).toDouble(),
+    });
   }
 
   @override
@@ -47,6 +58,67 @@ class FdResultScreenState extends State<FdResultScreen> {
       ),
       body: Column(
         children: [
+          paddingAll12(
+            child: Card(
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  paddingAll12(
+                    child: SizedBox(
+                      height: 100,
+                      width: 100,
+                      child: PieChart(
+                        dataMap: dataMap,
+                        ringStrokeWidth: 14,
+                        chartType: ChartType.ring,
+                        chartValuesOptions: const ChartValuesOptions(
+                          showChartValueBackground: false,
+                          showChartValues: false,
+                        ),
+                        legendOptions: const LegendOptions(
+                          showLegends: false,
+                        ),
+                        baseChartColor: Colors.transparent,
+                        colorList: colorList,
+                      ),
+                    ),
+                  ),
+                  Expanded(
+                    child: paddingAll12(
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        children: [
+                          Text(
+                            'Est. returns',
+                            style: AppTextStyle.regular18,
+                          ),
+                          Text(
+                            '${AppText.rupeeSymbol} ${result.numPrice}',
+                            style: AppTextStyle.semiBold20.copyWith(
+                              color: AppColors.blackColor,
+                            ),
+                          ),
+                          const Divider(),
+                          showChartText(
+                            color: AppColors.secondaryLightColor,
+                            title: dataMap.keys.first,
+                            trailing:
+                                '${dataMap.values.first.toStringAsFixed(2)}%',
+                          ),
+                          showChartText(
+                            color: AppColors.secondaryColor,
+                            title: dataMap.keys.last,
+                            trailing:
+                                '${dataMap.values.last.toStringAsFixed(2)}%',
+                          ),
+                        ],
+                      ),
+                    ),
+                  )
+                ],
+              ),
+            ),
+          ),
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
@@ -123,6 +195,39 @@ class FdResultScreenState extends State<FdResultScreen> {
           ),
         ],
       ),
+    );
+  }
+
+  Widget showChartText({
+    required Color color,
+    required String title,
+    required String trailing,
+  }) {
+    return Row(
+      children: [
+        Container(
+          height: 6,
+          width: 6,
+          decoration: BoxDecoration(
+            color: color,
+            shape: BoxShape.circle,
+          ),
+        ),
+        const SizedBox(
+          width: 8,
+        ),
+        Text(
+          title,
+          style: AppTextStyle.regular16,
+        ),
+        const Spacer(),
+        Text(
+          trailing,
+          style: AppTextStyle.semiBold16.copyWith(
+            color: AppColors.blackColor,
+          ),
+        ),
+      ],
     );
   }
 

@@ -7,6 +7,7 @@ import 'package:loan_calculator/module/home/home_screen.dart';
 import 'package:loan_calculator/theme/app_colors.dart';
 import 'package:loan_calculator/theme/app_text_style.dart';
 import 'package:loan_calculator/widgets/primary_button.dart';
+import 'package:pie_chart/pie_chart.dart';
 
 class SipResultScreen extends StatefulWidget {
   final num investment;
@@ -23,6 +24,12 @@ class SipResultScreen extends StatefulWidget {
 }
 
 class SipResultScreenState extends State<SipResultScreen> {
+  Map<String, double> dataMap = <String, double>{};
+
+  final colorList = <Color>[
+    AppColors.secondaryLightColor,
+    AppColors.secondaryColor,
+  ];
   late double totalInvestment;
   late double result;
   @override
@@ -36,6 +43,11 @@ class SipResultScreenState extends State<SipResultScreen> {
             (1 + i)) -
         investmentAmount;
     totalInvestment = result + investmentAmount;
+    num percentage = (100 * investmentAmount) / totalInvestment;
+    dataMap.addAll({
+      "Invested Amount": percentage.toDouble(),
+      "Est. returns": (100 - percentage).toDouble(),
+    });
     // print((100 * investmentAmount) / totalInvestment);
   }
 
@@ -50,6 +62,67 @@ class SipResultScreenState extends State<SipResultScreen> {
       ),
       body: Column(
         children: [
+          paddingAll12(
+            child: Card(
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  paddingAll12(
+                    child: SizedBox(
+                      height: 100,
+                      width: 100,
+                      child: PieChart(
+                        dataMap: dataMap,
+                        ringStrokeWidth: 14,
+                        chartType: ChartType.ring,
+                        chartValuesOptions: const ChartValuesOptions(
+                          showChartValueBackground: false,
+                          showChartValues: false,
+                        ),
+                        legendOptions: const LegendOptions(
+                          showLegends: false,
+                        ),
+                        baseChartColor: Colors.transparent,
+                        colorList: colorList,
+                      ),
+                    ),
+                  ),
+                  Expanded(
+                    child: paddingAll12(
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        children: [
+                          Text(
+                            'Est. Returns',
+                            style: AppTextStyle.regular18,
+                          ),
+                          Text(
+                            '${AppText.rupeeSymbol} ${result.doublePrice}',
+                            style: AppTextStyle.semiBold20.copyWith(
+                              color: AppColors.blackColor,
+                            ),
+                          ),
+                          const Divider(),
+                          showChartText(
+                            color: AppColors.secondaryLightColor,
+                            title: dataMap.keys.first,
+                            trailing:
+                                '${dataMap.values.first.toStringAsFixed(2)}%',
+                          ),
+                          showChartText(
+                            color: AppColors.secondaryColor,
+                            title: dataMap.keys.last,
+                            trailing:
+                                '${dataMap.values.last.toStringAsFixed(2)}%',
+                          ),
+                        ],
+                      ),
+                    ),
+                  )
+                ],
+              ),
+            ),
+          ),
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
@@ -166,6 +239,39 @@ class SipResultScreenState extends State<SipResultScreen> {
           ),
         ],
       ),
+    );
+  }
+
+  Widget showChartText({
+    required Color color,
+    required String title,
+    required String trailing,
+  }) {
+    return Row(
+      children: [
+        Container(
+          height: 6,
+          width: 6,
+          decoration: BoxDecoration(
+            color: color,
+            shape: BoxShape.circle,
+          ),
+        ),
+        const SizedBox(
+          width: 8,
+        ),
+        Text(
+          title,
+          style: AppTextStyle.regular16,
+        ),
+        const Spacer(),
+        Text(
+          trailing,
+          style: AppTextStyle.semiBold16.copyWith(
+            color: AppColors.blackColor,
+          ),
+        ),
+      ],
     );
   }
 

@@ -20,7 +20,6 @@ class _HomeScreenState extends State<HomeScreen> {
         body: [
           const DashboardScreen(),
           const CalculatorScreen(),
-          const DashboardScreen(),
         ][currentIndex],
         bottomNavigationBar: BottomNavigationBar(
           type: BottomNavigationBarType.fixed,
@@ -43,10 +42,6 @@ class _HomeScreenState extends State<HomeScreen> {
             BottomNavigationBarItem(
               label: AppText.calculator,
               icon: Icon(Icons.calculate_rounded),
-            ),
-            BottomNavigationBarItem(
-              label: AppText.settings,
-              icon: Icon(Icons.settings),
             ),
           ],
         ),
