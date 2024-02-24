@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:loan_calculator/constants/app_text.dart';
+import 'package:loan_calculator/module/google_ads/Interstitial_ads.dart';
+import 'package:loan_calculator/module/google_ads/native_ads.dart';
 import 'package:loan_calculator/module/sip/sip_result_screen.dart';
 import 'package:loan_calculator/theme/app_colors.dart';
 import 'package:loan_calculator/theme/app_text_style.dart';
@@ -38,6 +40,8 @@ class _SipScreenState extends State<SipScreen> {
         appBar: AppBar(
           leading: InkWell(
             onTap: () {
+              InterstitialAds interstitialAds = InterstitialAds();
+              interstitialAds.createInterad();
               Navigator.pop(context);
             },
             child: const Icon(
@@ -173,6 +177,7 @@ class _SipScreenState extends State<SipScreen> {
                     ),
                   ),
                 ),
+                const NativeAds(),
               ],
             ),
           ),

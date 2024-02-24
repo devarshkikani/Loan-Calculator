@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:loan_calculator/constants/app_text.dart';
 import 'package:loan_calculator/module/fd/fd_result_screen.dart';
+import 'package:loan_calculator/module/google_ads/Interstitial_ads.dart';
+import 'package:loan_calculator/module/google_ads/native_ads.dart';
 import 'package:loan_calculator/theme/app_colors.dart';
 import 'package:loan_calculator/theme/app_text_style.dart';
 import 'package:loan_calculator/widgets/app_text_form_field.dart';
@@ -38,6 +40,8 @@ class _FdScreenState extends State<FdScreen> {
         appBar: AppBar(
           leading: InkWell(
             onTap: () {
+              InterstitialAds interstitialAds = InterstitialAds();
+              interstitialAds.createInterad();
               Navigator.pop(context);
             },
             child: const Icon(
@@ -173,6 +177,7 @@ class _FdScreenState extends State<FdScreen> {
                     ),
                   ),
                 ),
+                const NativeAds(),
               ],
             ),
           ),

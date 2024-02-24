@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:loan_calculator/constants/app_text.dart';
 import 'package:loan_calculator/module/emi/emi_screen.dart';
 import 'package:loan_calculator/module/fd/fd_screen.dart';
+import 'package:loan_calculator/module/google_ads/banner_ads.dart';
 import 'package:loan_calculator/module/lumpsum/lumpsum_screen.dart';
 import 'package:loan_calculator/module/mutual_funds/mutual_funds_screen.dart';
 import 'package:loan_calculator/module/sip/sip_screen.dart';
@@ -64,64 +65,71 @@ class _DashboardScreenState extends State<DashboardScreen> {
           style: AppTextStyle.semiBold22,
         ),
       ),
-      body: GridView.builder(
-        primary: false,
-        itemCount: listOfFeature.length,
-        padding: const EdgeInsets.all(12),
-        physics: const BouncingScrollPhysics(),
-        gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-          crossAxisCount: 2,
-          childAspectRatio: 0.78,
-          crossAxisSpacing: 20,
-          mainAxisSpacing: 20,
-        ),
-        itemBuilder: (context, index) {
-          return InkWell(
-            onTap: () {
-              if (index == 0) {
-                navigate(const SipScreen());
-              } else if (index == 1) {
-                navigate(const LumpsumScreen());
-              } else if (index == 2) {
-                navigate(const EmiScreen());
-              } else if (index == 3) {
-                navigate(const FdScreen());
-              } else if (index == 4) {
-                navigate(const MutualFundsScreen());
-              }
-            },
-            child: Container(
-              padding: const EdgeInsets.all(16),
-              decoration: BoxDecoration(
-                color: AppColors.whiteLightColor.withOpacity(0.2),
-                borderRadius: BorderRadius.circular(16),
-                border: Border.all(
-                  color: AppColors.whiteLightColor,
-                ),
+      body: Column(
+        children: [
+          Expanded(
+            child: GridView.builder(
+              primary: false,
+              itemCount: listOfFeature.length,
+              padding: const EdgeInsets.all(12),
+              physics: const BouncingScrollPhysics(),
+              gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                crossAxisCount: 2,
+                childAspectRatio: 0.78,
+                crossAxisSpacing: 20,
+                mainAxisSpacing: 20,
               ),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text(
-                    listOfFeature[index]['title'],
-                    style: AppTextStyle.bold18,
-                  ),
-                  Text(
-                    listOfFeature[index]['subtitle'],
-                    style: AppTextStyle.regular14,
-                  ),
-                  const Spacer(),
-                  Align(
-                    alignment: Alignment.bottomRight,
-                    child: Image.network(
-                      listOfFeature[index]['icon'],
+              itemBuilder: (context, index) {
+                return InkWell(
+                  onTap: () {
+                    if (index == 0) {
+                      navigate(const SipScreen());
+                    } else if (index == 1) {
+                      navigate(const LumpsumScreen());
+                    } else if (index == 2) {
+                      navigate(const EmiScreen());
+                    } else if (index == 3) {
+                      navigate(const FdScreen());
+                    } else if (index == 4) {
+                      navigate(const MutualFundsScreen());
+                    }
+                  },
+                  child: Container(
+                    padding: const EdgeInsets.all(16),
+                    decoration: BoxDecoration(
+                      color: AppColors.whiteLightColor.withOpacity(0.2),
+                      borderRadius: BorderRadius.circular(16),
+                      border: Border.all(
+                        color: AppColors.whiteLightColor,
+                      ),
                     ),
-                  )
-                ],
-              ),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(
+                          listOfFeature[index]['title'],
+                          style: AppTextStyle.bold18,
+                        ),
+                        Text(
+                          listOfFeature[index]['subtitle'],
+                          style: AppTextStyle.regular14,
+                        ),
+                        const Spacer(),
+                        Align(
+                          alignment: Alignment.bottomRight,
+                          child: Image.network(
+                            listOfFeature[index]['icon'],
+                          ),
+                        )
+                      ],
+                    ),
+                  ),
+                );
+              },
             ),
-          );
-        },
+          ),
+          const BannerAds(),
+        ],
       ),
     );
   }

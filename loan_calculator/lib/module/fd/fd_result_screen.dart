@@ -1,4 +1,5 @@
 import 'dart:math';
+import 'package:loan_calculator/module/google_ads/Interstitial_ads.dart';
 import 'package:pie_chart/pie_chart.dart';
 import 'package:flutter/material.dart';
 import 'package:loan_calculator/constants/app_text.dart';
@@ -54,6 +55,8 @@ class FdResultScreenState extends State<FdResultScreen> {
       appBar: AppBar(
         leading: InkWell(
           onTap: () {
+            InterstitialAds interstitialAds = InterstitialAds();
+            interstitialAds.createInterad();
             Navigator.pop(context);
           },
           child: const Icon(
