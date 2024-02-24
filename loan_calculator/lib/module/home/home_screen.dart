@@ -15,36 +15,34 @@ class _HomeScreenState extends State<HomeScreen> {
   int currentIndex = 0;
   @override
   Widget build(BuildContext context) {
-    return SafeArea(
-      child: Scaffold(
-        body: [
-          const DashboardScreen(),
-          const CalculatorScreen(),
-        ][currentIndex],
-        bottomNavigationBar: BottomNavigationBar(
-          type: BottomNavigationBarType.fixed,
-          backgroundColor: AppColors.whiteColor,
-          selectedItemColor: AppColors.secondaryColor,
-          unselectedItemColor: AppColors.greyColor,
-          selectedFontSize: 14,
-          unselectedFontSize: 14,
-          currentIndex: currentIndex,
-          onTap: (value) {
-            setState(() {
-              currentIndex = value;
-            });
-          },
-          items: const [
-            BottomNavigationBarItem(
-              icon: Icon(Icons.home_rounded),
-              label: AppText.home,
-            ),
-            BottomNavigationBarItem(
-              label: AppText.calculator,
-              icon: Icon(Icons.calculate_rounded),
-            ),
-          ],
-        ),
+    return Scaffold(
+      body: [
+        const DashboardScreen(),
+        const CalculatorScreen(),
+      ][currentIndex],
+      bottomNavigationBar: BottomNavigationBar(
+        type: BottomNavigationBarType.fixed,
+        backgroundColor: AppColors.whiteColor,
+        selectedItemColor: AppColors.secondaryColor,
+        unselectedItemColor: AppColors.greyColor,
+        selectedFontSize: 14,
+        unselectedFontSize: 14,
+        currentIndex: currentIndex,
+        onTap: (value) {
+          setState(() {
+            currentIndex = value;
+          });
+        },
+        items: const [
+          BottomNavigationBarItem(
+            icon: Icon(Icons.home_rounded),
+            label: AppText.home,
+          ),
+          BottomNavigationBarItem(
+            label: AppText.calculator,
+            icon: Icon(Icons.calculate_rounded),
+          ),
+        ],
       ),
     );
   }

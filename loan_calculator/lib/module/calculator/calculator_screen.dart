@@ -42,7 +42,10 @@ class _CalculatorScreenState extends State<CalculatorScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: AppColors.whiteColor,
       appBar: AppBar(
+        backgroundColor: AppColors.whiteColor,
+        elevation: 0,
         title: Text(
           AppText.calculator,
           style: AppTextStyle.semiBold22,
@@ -93,7 +96,7 @@ class _CalculatorScreenState extends State<CalculatorScreen> {
             ],
           ),
           Expanded(
-            flex: 5,
+            flex: 4,
             child: GridView.builder(
                 itemCount: buttons.length,
                 physics: const NeverScrollableScrollPhysics(),
@@ -121,10 +124,12 @@ class _CalculatorScreenState extends State<CalculatorScreen> {
                   else if (index == 1) {
                     return MyButton(
                       buttontapped: () {
-                        setState(() {
-                          userInput =
-                              userInput.substring(0, userInput.length - 1);
-                        });
+                        if (userInput.isNotEmpty) {
+                          setState(() {
+                            userInput =
+                                userInput.substring(0, userInput.length - 1);
+                          });
+                        }
                       },
                       buttonText: buttons[index],
                       color: AppColors.secondaryLightColor,
@@ -173,7 +178,7 @@ class _CalculatorScreenState extends State<CalculatorScreen> {
                   } else if (index == 16) {
                     return MyButton(
                       buttonText: buttons[index],
-                      color: AppColors.whiteLightColor,
+                      color: AppColors.whiteLightColor.withOpacity(0.3),
                       textColor: AppColors.textColor,
                     );
                   }
@@ -188,7 +193,7 @@ class _CalculatorScreenState extends State<CalculatorScreen> {
                       buttonText: buttons[index],
                       color: isOperator(buttons[index])
                           ? AppColors.secondaryLightColor
-                          : AppColors.whiteLightColor,
+                          : AppColors.whiteLightColor.withOpacity(0.3),
                       textColor: isOperator(buttons[index])
                           ? AppColors.secondaryColor
                           : AppColors.blackColor,
@@ -223,16 +228,16 @@ class _CalculatorScreenState extends State<CalculatorScreen> {
 
 class MyButton extends StatelessWidget {
   // declaring variables
-  final color;
-  final textColor;
+  final Color color;
+  final Color textColor;
   final String buttonText;
-  final buttontapped;
+  final Function()? buttontapped;
 
   //Constructor
   const MyButton(
       {super.key,
-      this.color,
-      this.textColor,
+      required this.color,
+      required this.textColor,
       required this.buttonText,
       this.buttontapped});
 

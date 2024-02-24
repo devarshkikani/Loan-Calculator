@@ -51,7 +51,19 @@ class EmiResultScreenState extends State<EmiResultScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: AppColors.whiteColor,
       appBar: AppBar(
+        elevation: 0,
+        leading: InkWell(
+          onTap: () {
+            Navigator.pop(context);
+          },
+          child: const Icon(
+            Icons.arrow_back_rounded,
+            color: AppColors.blackColor,
+          ),
+        ),
+        backgroundColor: AppColors.whiteColor,
         title: Text(
           'Result',
           style: AppTextStyle.semiBold22,
@@ -59,65 +71,71 @@ class EmiResultScreenState extends State<EmiResultScreen> {
       ),
       body: Column(
         children: [
-          paddingAll12(
-            child: Card(
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  paddingAll12(
-                    child: SizedBox(
-                      height: 100,
-                      width: 100,
-                      child: PieChart(
-                        dataMap: dataMap,
-                        ringStrokeWidth: 14,
-                        chartType: ChartType.ring,
-                        chartValuesOptions: const ChartValuesOptions(
-                          showChartValueBackground: false,
-                          showChartValues: false,
-                        ),
-                        legendOptions: const LegendOptions(
-                          showLegends: false,
-                        ),
-                        baseChartColor: Colors.transparent,
-                        colorList: colorList,
+          Container(
+            margin: const EdgeInsets.all(16),
+            decoration: BoxDecoration(
+              color: AppColors.whiteLightColor.withOpacity(0.2),
+              borderRadius: BorderRadius.circular(16),
+              border: Border.all(
+                color: AppColors.whiteLightColor,
+              ),
+            ),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                paddingAll12(
+                  child: SizedBox(
+                    height: 100,
+                    width: 100,
+                    child: PieChart(
+                      dataMap: dataMap,
+                      ringStrokeWidth: 14,
+                      chartType: ChartType.ring,
+                      chartValuesOptions: const ChartValuesOptions(
+                        showChartValueBackground: false,
+                        showChartValues: false,
                       ),
+                      legendOptions: const LegendOptions(
+                        showLegends: false,
+                      ),
+                      baseChartColor: Colors.transparent,
+                      colorList: colorList,
                     ),
                   ),
-                  Expanded(
-                    child: paddingAll12(
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.center,
-                        children: [
-                          Text(
-                            'Monthly EMI',
-                            style: AppTextStyle.regular18,
+                ),
+                Expanded(
+                  child: paddingAll12(
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      children: [
+                        Text(
+                          'Monthly EMI',
+                          style: AppTextStyle.regular18,
+                        ),
+                        Text(
+                          '${AppText.rupeeSymbol} ${monthlyEMI.doublePrice}',
+                          style: AppTextStyle.semiBold20.copyWith(
+                            color: AppColors.blackColor,
                           ),
-                          Text(
-                            '${AppText.rupeeSymbol} ${monthlyEMI.doublePrice}',
-                            style: AppTextStyle.semiBold20.copyWith(
-                              color: AppColors.blackColor,
-                            ),
-                          ),
-                          const Divider(),
-                          showChartText(
-                            color: AppColors.secondaryLightColor,
-                            title: dataMap.keys.first,
-                            trailing:
-                                '${dataMap.values.first.toStringAsFixed(2)}%',
-                          ),
-                          showChartText(
-                            color: AppColors.secondaryColor,
-                            title: dataMap.keys.last,
-                            trailing:
-                                '${dataMap.values.last.toStringAsFixed(2)}%',
-                          ),
-                        ],
-                      ),
+                        ),
+                        const Divider(),
+                        showChartText(
+                          color: AppColors.secondaryLightColor,
+                          title: dataMap.keys.first,
+                          trailing:
+                              '${dataMap.values.first.toStringAsFixed(2)}%',
+                        ),
+                        showChartText(
+                          color: AppColors.secondaryColor,
+                          title: dataMap.keys.last,
+                          trailing:
+                              '${dataMap.values.last.toStringAsFixed(2)}%',
+                        ),
+                      ],
                     ),
-                  )
-                ],
-              ),
+                  ),
+                )
+              ],
             ),
           ),
           Row(

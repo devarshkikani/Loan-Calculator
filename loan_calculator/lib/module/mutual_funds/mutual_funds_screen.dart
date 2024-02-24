@@ -34,7 +34,19 @@ class _MutualFundsScreenState extends State<MutualFundsScreen> {
     return DefaultTabController(
       length: 2,
       child: Scaffold(
+        backgroundColor: AppColors.whiteColor,
         appBar: AppBar(
+          leading: InkWell(
+            onTap: () {
+              Navigator.pop(context);
+            },
+            child: const Icon(
+              Icons.arrow_back_rounded,
+              color: AppColors.blackColor,
+            ),
+          ),
+          backgroundColor: AppColors.whiteColor,
+          elevation: 0,
           title: Text(
             'Mutual Funds ${AppText.calculator}',
             style: AppTextStyle.semiBold22,
@@ -80,80 +92,84 @@ class _MutualFundsScreenState extends State<MutualFundsScreen> {
             padding: const EdgeInsets.all(12),
             child: Column(
               children: [
-                Card(
-                  color: AppColors.whiteColor,
-                  child: Padding(
-                    padding: const EdgeInsets.all(12),
-                    child: Form(
-                      key: _formKey,
-                      child: Column(
-                        children: [
-                          commonFiled(
-                            title: AppText.totalInvestment,
-                            controller: investmentAmount,
-                            min: 100,
-                            max: 100000,
-                            maxLength: 6,
-                            symbol: AppText.rupeeSymbol,
-                            textAlign: TextAlign.left,
-                            validator: (p0) {
-                              if (p0!.isEmpty) {
-                                return 'Minimum value allowed is 100';
-                              } else if (int.parse(p0) > 100000) {
-                                return 'Maximum value allowed is 100000';
-                              } else {
-                                return null;
-                              }
-                            },
-                          ),
-                          const SizedBox(
-                            height: 12,
-                          ),
-                          commonFiled(
-                            title: AppText.expectedReturnRate,
-                            controller: returnRate,
-                            min: 1,
-                            max: 30,
-                            maxLength: 3,
-                            symbol: AppText.percentageSymbol,
-                            textAlign: TextAlign.left,
-                            validator: (p0) {
-                              if (p0!.isEmpty) {
-                                return 'Minimum value allowed is 1';
-                              } else if (double.parse(p0) > 30) {
-                                return 'Maximum value allowed is 30';
-                              } else {
-                                return null;
-                              }
-                            },
-                          ),
-                          const SizedBox(
-                            height: 12,
-                          ),
-                          commonFiled(
-                            title: AppText.timePeriod,
-                            controller: time,
-                            min: 1,
-                            max: 30,
-                            maxLength: 3,
-                            symbol: AppText.yearSymbol,
-                            textAlign: TextAlign.left,
-                            validator: (p0) {
-                              if (p0!.isEmpty) {
-                                return 'Minimum value allowed is 1';
-                              } else if (num.parse(p0) > 30) {
-                                return 'Maximum value allowed is 30';
-                              } else {
-                                return null;
-                              }
-                            },
-                          ),
-                          const SizedBox(
-                            height: 12,
-                          ),
-                          bottomButtons(),
-                        ],
-                      ),
+                Container(
+                  padding: const EdgeInsets.all(16),
+                  decoration: BoxDecoration(
+                    color: AppColors.whiteLightColor.withOpacity(0.2),
+                    borderRadius: BorderRadius.circular(16),
+                    border: Border.all(
+                      color: AppColors.whiteLightColor,
+                    ),
+                  ),
+                  child: Form(
+                    key: _formKey,
+                    child: Column(
+                      children: [
+                        commonFiled(
+                          title: AppText.totalInvestment,
+                          controller: investmentAmount,
+                          min: 100,
+                          max: 100000,
+                          maxLength: 6,
+                          symbol: AppText.rupeeSymbol,
+                          textAlign: TextAlign.left,
+                          validator: (p0) {
+                            if (p0!.isEmpty) {
+                              return 'Minimum value allowed is 100';
+                            } else if (int.parse(p0) > 100000) {
+                              return 'Maximum value allowed is 100000';
+                            } else {
+                              return null;
+                            }
+                          },
+                        ),
+                        const SizedBox(
+                          height: 12,
+                        ),
+                        commonFiled(
+                          title: AppText.expectedReturnRate,
+                          controller: returnRate,
+                          min: 1,
+                          max: 30,
+                          maxLength: 3,
+                          symbol: AppText.percentageSymbol,
+                          textAlign: TextAlign.left,
+                          validator: (p0) {
+                            if (p0!.isEmpty) {
+                              return 'Minimum value allowed is 1';
+                            } else if (double.parse(p0) > 30) {
+                              return 'Maximum value allowed is 30';
+                            } else {
+                              return null;
+                            }
+                          },
+                        ),
+                        const SizedBox(
+                          height: 12,
+                        ),
+                        commonFiled(
+                          title: AppText.timePeriod,
+                          controller: time,
+                          min: 1,
+                          max: 30,
+                          maxLength: 3,
+                          symbol: AppText.yearSymbol,
+                          textAlign: TextAlign.left,
+                          validator: (p0) {
+                            if (p0!.isEmpty) {
+                              return 'Minimum value allowed is 1';
+                            } else if (num.parse(p0) > 30) {
+                              return 'Maximum value allowed is 30';
+                            } else {
+                              return null;
+                            }
+                          },
+                        ),
+                        const SizedBox(
+                          height: 12,
+                        ),
+                        bottomButtons(),
+                      ],
                     ),
                   ),
                 ),
