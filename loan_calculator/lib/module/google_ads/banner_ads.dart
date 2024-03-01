@@ -9,8 +9,6 @@ class BannerAds extends StatefulWidget {
   BbannerAdsState createState() => BbannerAdsState();
 }
 
-bool adShaw = false;
-
 class BbannerAdsState extends State<BannerAds> {
   BannerAd? bannerAds;
   bool isAdLoaded = false;
@@ -37,11 +35,9 @@ class BbannerAdsState extends State<BannerAds> {
       listener: BannerAdListener(
         onAdLoaded: (Ad ads) {
           isAdLoaded = true;
-          adShaw = true;
         },
         onAdFailedToLoad: (ad, error) {
           ad.dispose();
-          adShaw = false;
           print('Ad load failed (code=${error.code} message=${error.message})');
         },
         onAdOpened: (Ad ad) => print('$BannerAd onAdOpened.'),
@@ -60,9 +56,7 @@ class BbannerAdsState extends State<BannerAds> {
             height: 55.0,
             child: AdWidget(ad: bannerAds!),
           )
-        : SizedBox(
-            height: adShaw ? 65.0 : 0,
-          );
+        : const SizedBox();
   }
 }
 

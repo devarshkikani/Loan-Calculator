@@ -194,42 +194,36 @@ class TextFormFieldWidget extends StatelessWidget {
         isDense: true,
         contentPadding: contentPadding ??
             const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
-        border: InputBorder.none,
-        // OutlineInputBorder(
-        //   borderRadius: BorderRadius.circular(10),
-        //   borderSide: const BorderSide(
-        //     color: Colors.transparent,
-        //   ),
-        // ),
-        disabledBorder: InputBorder.none,
-        //  OutlineInputBorder(
-        //   borderRadius: BorderRadius.circular(10),
-        //   borderSide: const BorderSide(
-        //     color: Colors.transparent,
-        //   ),
-        // ),
-        enabledBorder: InputBorder.none,
-
-        // OutlineInputBorder(
-        //   borderRadius: BorderRadius.circular(10),
-        //   borderSide: const BorderSide(
-        //     color: Colors.transparent,
-        //   ),
-        // ),
-        focusedBorder: InputBorder.none,
-        //  OutlineInputBorder(
-        //   borderRadius: BorderRadius.circular(10),
-        //   borderSide: const BorderSide(
-        //     color: Colors.transparent,
-        //   ),
-        // ),
-        errorBorder: InputBorder.none,
-        //  OutlineInputBorder(
-        //   borderRadius: BorderRadius.circular(10),
-        //   borderSide: const BorderSide(
-        //     color: Colors.transparent,
-        //   ),
-        // ),
+        border: OutlineInputBorder(
+          borderRadius: BorderRadius.circular(10),
+          borderSide: const BorderSide(
+            color: Colors.transparent,
+          ),
+        ),
+        disabledBorder: OutlineInputBorder(
+          borderRadius: BorderRadius.circular(10),
+          borderSide: const BorderSide(
+            color: Colors.transparent,
+          ),
+        ),
+        enabledBorder: OutlineInputBorder(
+          borderRadius: BorderRadius.circular(10),
+          borderSide: const BorderSide(
+            color: Colors.transparent,
+          ),
+        ),
+        focusedBorder: OutlineInputBorder(
+          borderRadius: BorderRadius.circular(10),
+          borderSide: const BorderSide(
+            color: Colors.transparent,
+          ),
+        ),
+        errorBorder: OutlineInputBorder(
+          borderRadius: BorderRadius.circular(10),
+          borderSide: const BorderSide(
+            color: Colors.transparent,
+          ),
+        ),
         errorMaxLines: 2,
         errorStyle: AppTextStyle.regular10.copyWith(
           color: AppColors.errorColor,

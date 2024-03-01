@@ -4,6 +4,8 @@ import 'package:flutter/material.dart';
 import 'package:loan_calculator/constants/app_text.dart';
 import 'package:loan_calculator/extentions/number_formater_extension.dart';
 import 'package:loan_calculator/module/google_ads/Interstitial_ads.dart';
+import 'package:loan_calculator/module/google_ads/banner_ads.dart';
+import 'package:loan_calculator/module/google_ads/native_ads.dart';
 import 'package:loan_calculator/module/home/home_screen.dart';
 import 'package:loan_calculator/theme/app_colors.dart';
 import 'package:loan_calculator/theme/app_text_style.dart';
@@ -75,190 +77,194 @@ class SipResultScreenState extends State<SipResultScreen> {
           style: AppTextStyle.semiBold22,
         ),
       ),
-      body: Column(
-        children: [
-          Container(
-            margin: const EdgeInsets.all(16),
-            decoration: BoxDecoration(
-              color: AppColors.whiteLightColor.withOpacity(0.2),
-              borderRadius: BorderRadius.circular(16),
-              border: Border.all(
-                color: AppColors.whiteLightColor,
+      body: SingleChildScrollView(
+        child: Column(
+          children: [
+            Container(
+              margin: const EdgeInsets.all(16),
+              decoration: BoxDecoration(
+                color: AppColors.whiteLightColor.withOpacity(0.2),
+                borderRadius: BorderRadius.circular(16),
+                border: Border.all(
+                  color: AppColors.whiteLightColor,
+                ),
+              ),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  paddingAll12(
+                    child: SizedBox(
+                      height: 100,
+                      width: 100,
+                      child: PieChart(
+                        dataMap: dataMap,
+                        ringStrokeWidth: 14,
+                        chartType: ChartType.ring,
+                        chartValuesOptions: const ChartValuesOptions(
+                          showChartValueBackground: false,
+                          showChartValues: false,
+                        ),
+                        legendOptions: const LegendOptions(
+                          showLegends: false,
+                        ),
+                        baseChartColor: Colors.transparent,
+                        colorList: colorList,
+                      ),
+                    ),
+                  ),
+                  Expanded(
+                    child: paddingAll12(
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        children: [
+                          Text(
+                            'Est. Returns',
+                            style: AppTextStyle.regular18,
+                          ),
+                          Text(
+                            '${AppText.rupeeSymbol} ${result.doublePrice}',
+                            style: AppTextStyle.semiBold20.copyWith(
+                              color: AppColors.blackColor,
+                            ),
+                          ),
+                          const Divider(),
+                          showChartText(
+                            color: AppColors.secondaryLightColor,
+                            title: dataMap.keys.first,
+                            trailing:
+                                '${dataMap.values.first.toStringAsFixed(2)}%',
+                          ),
+                          showChartText(
+                            color: AppColors.secondaryColor,
+                            title: dataMap.keys.last,
+                            trailing:
+                                '${dataMap.values.last.toStringAsFixed(2)}%',
+                          ),
+                        ],
+                      ),
+                    ),
+                  )
+                ],
               ),
             ),
-            child: Row(
+            Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 paddingAll12(
-                  child: SizedBox(
-                    height: 100,
-                    width: 100,
-                    child: PieChart(
-                      dataMap: dataMap,
-                      ringStrokeWidth: 14,
-                      chartType: ChartType.ring,
-                      chartValuesOptions: const ChartValuesOptions(
-                        showChartValueBackground: false,
-                        showChartValues: false,
-                      ),
-                      legendOptions: const LegendOptions(
-                        showLegends: false,
-                      ),
-                      baseChartColor: Colors.transparent,
-                      colorList: colorList,
+                  child: Text(
+                    'Investment Amount',
+                    style: AppTextStyle.regular16,
+                  ),
+                ),
+                paddingAll12(
+                  child: Text(
+                    '${(widget.investment * (widget.time * 12)).numPrice} ${AppText.rupeeSymbol}',
+                    style: AppTextStyle.semiBold16.copyWith(
+                      color: AppColors.blackColor,
                     ),
                   ),
                 ),
-                Expanded(
-                  child: paddingAll12(
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.center,
-                      children: [
-                        Text(
-                          'Est. Returns',
-                          style: AppTextStyle.regular18,
-                        ),
-                        Text(
-                          '${AppText.rupeeSymbol} ${result.doublePrice}',
-                          style: AppTextStyle.semiBold20.copyWith(
-                            color: AppColors.blackColor,
-                          ),
-                        ),
-                        const Divider(),
-                        showChartText(
-                          color: AppColors.secondaryLightColor,
-                          title: dataMap.keys.first,
-                          trailing:
-                              '${dataMap.values.first.toStringAsFixed(2)}%',
-                        ),
-                        showChartText(
-                          color: AppColors.secondaryColor,
-                          title: dataMap.keys.last,
-                          trailing:
-                              '${dataMap.values.last.toStringAsFixed(2)}%',
-                        ),
-                      ],
-                    ),
-                  ),
-                )
               ],
             ),
-          ),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              paddingAll12(
-                child: Text(
-                  'Investment Amount',
-                  style: AppTextStyle.regular16,
-                ),
-              ),
-              paddingAll12(
-                child: Text(
-                  '${(widget.investment * (widget.time * 12)).numPrice} ${AppText.rupeeSymbol}',
-                  style: AppTextStyle.semiBold16.copyWith(
-                    color: AppColors.blackColor,
+            const Divider(),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                paddingAll12(
+                  child: Text(
+                    'Interest rate',
+                    style: AppTextStyle.regular16,
                   ),
                 ),
-              ),
-            ],
-          ),
-          const Divider(),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              paddingAll12(
-                child: Text(
-                  'Interest rate',
-                  style: AppTextStyle.regular16,
-                ),
-              ),
-              paddingAll12(
-                child: Text(
-                  '${widget.returnRate} ${AppText.percentageSymbol}',
-                  style: AppTextStyle.semiBold16.copyWith(
-                    color: AppColors.blackColor,
+                paddingAll12(
+                  child: Text(
+                    '${widget.returnRate} ${AppText.percentageSymbol}',
+                    style: AppTextStyle.semiBold16.copyWith(
+                      color: AppColors.blackColor,
+                    ),
                   ),
                 ),
-              ),
-            ],
-          ),
-          const Divider(),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              paddingAll12(
-                child: Text(
-                  AppText.timePeriod,
-                  style: AppTextStyle.regular16,
-                ),
-              ),
-              paddingAll12(
-                child: Text(
-                  '${widget.time} Year',
-                  style: AppTextStyle.semiBold16.copyWith(
-                    color: AppColors.blackColor,
+              ],
+            ),
+            const Divider(),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                paddingAll12(
+                  child: Text(
+                    AppText.timePeriod,
+                    style: AppTextStyle.regular16,
                   ),
                 ),
-              ),
-            ],
-          ),
-          const Divider(),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              paddingAll12(
-                child: Text(
-                  'Est. returns',
-                  style: AppTextStyle.regular16,
-                ),
-              ),
-              paddingAll12(
-                child: Text(
-                  '${result.doublePrice} ${AppText.rupeeSymbol}',
-                  style: AppTextStyle.semiBold16.copyWith(
-                    color: AppColors.blackColor,
+                paddingAll12(
+                  child: Text(
+                    '${widget.time} Year',
+                    style: AppTextStyle.semiBold16.copyWith(
+                      color: AppColors.blackColor,
+                    ),
                   ),
                 ),
-              ),
-            ],
-          ),
-          const Divider(),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              paddingAll12(
-                child: Text(
-                  'Total value',
-                  style: AppTextStyle.regular16,
-                ),
-              ),
-              paddingAll12(
-                child: Text(
-                  '${totalInvestment.doublePrice} ${AppText.rupeeSymbol}',
-                  style: AppTextStyle.semiBold16.copyWith(
-                    color: AppColors.blackColor,
+              ],
+            ),
+            const Divider(),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                paddingAll12(
+                  child: Text(
+                    'Est. returns',
+                    style: AppTextStyle.regular16,
                   ),
                 ),
-              ),
-            ],
-          ),
-          const Divider(),
-          const SizedBox(
-            height: 30,
-          ),
-          PrimaryButton(
-            text: 'Go to home',
-            height: 50,
-            tColor: AppColors.whiteColor,
-            onTap: () {
-              Navigator.pushAndRemoveUntil(
-                  context,
-                  MaterialPageRoute(builder: (_) => const HomeScreen()),
-                  (route) => false);
-            },
-          ),
-        ],
+                paddingAll12(
+                  child: Text(
+                    '${result.doublePrice} ${AppText.rupeeSymbol}',
+                    style: AppTextStyle.semiBold16.copyWith(
+                      color: AppColors.blackColor,
+                    ),
+                  ),
+                ),
+              ],
+            ),
+            const Divider(),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                paddingAll12(
+                  child: Text(
+                    'Total value',
+                    style: AppTextStyle.regular16,
+                  ),
+                ),
+                paddingAll12(
+                  child: Text(
+                    '${totalInvestment.doublePrice} ${AppText.rupeeSymbol}',
+                    style: AppTextStyle.semiBold16.copyWith(
+                      color: AppColors.blackColor,
+                    ),
+                  ),
+                ),
+              ],
+            ),
+            const Divider(),
+            const SizedBox(
+              height: 30,
+            ),
+            const NativeAds(),
+            PrimaryButton(
+              text: 'Go to home',
+              height: 50,
+              tColor: AppColors.whiteColor,
+              onTap: () {
+                Navigator.pushAndRemoveUntil(
+                    context,
+                    MaterialPageRoute(builder: (_) => const HomeScreen()),
+                    (route) => false);
+              },
+            ),
+            const BannerAds(),
+          ],
+        ),
       ),
     );
   }

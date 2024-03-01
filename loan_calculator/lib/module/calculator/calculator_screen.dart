@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:loan_calculator/constants/app_text.dart';
+import 'package:loan_calculator/module/google_ads/banner_ads.dart';
 import 'package:loan_calculator/theme/app_colors.dart';
 import 'package:loan_calculator/theme/app_text_style.dart';
 import 'package:math_expressions/math_expressions.dart';
@@ -201,6 +202,7 @@ class _CalculatorScreenState extends State<CalculatorScreen> {
                   }
                 }),
           ),
+          const BannerAds()
         ],
       ),
     );
